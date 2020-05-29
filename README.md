@@ -1,5 +1,11 @@
 # Ogar3
+
 An open source Agar.io server implementation, written in Node.js.
+
+## Original Author
+Please find his project here: https://github.com/Faris90/Ogar3.<br>
+This project is largely based on his code, so big thanks to him!<br>
+
 ## THIS IS CURRENTLY IN THE MAKING
 ## Project Status
 The project is nearly complete. Here's a rough list of what's been done and what needs to be done:
@@ -15,11 +21,15 @@ The project is nearly complete. Here's a rough list of what's been done and what
 - [x] Leaderboard
 - [x] Team mode
 - [x] Spectate mode
-- [ ] More features
+- [ ] Admin Commands
+- [x] Server Logging
+- [x] Chat Filter for Profanity
+- [ ] IP Ban/Kick via Command Line
+- [ ] Seperate Queue Page with Redirect to Game
 
 
 ## How to access server
-Go to localhost if you set the port to 443 go to localhost:443
+Go to localhost if you set the port to 80 go to localhost:80
 Demo: [Click here for demo](https://ogar3-demo.herokuapp.com/)
 ## Obtaining and Using
 If you are on Windows, Ogar3 no longer requires an installation of node.js to run. Simply launch the batch file that is included to run the server. This is a beta feature, and if there are any problems, switch back to using Ogar3 with node.js. The rest of this section is for non Windows users.
@@ -31,9 +41,9 @@ As Ogar3 is written in Node.js, you must have Node.js and its "ws" module instal
 Although Ogar3 allows you to run both the Agar.io master server and game server separately, it's currently recommended that you run both servers together until the master server is more implemented. Alternatively, you could run the game server only, and use a client-side mod to connect to the IP address of the server.
 
 ```sh
-~$ git clone git:github.com/Faris90/Ogar3.git Ogar3
-~$ npm install ./Ogar3	
-~$ npm start
+~$ git clone git:github.com/ajz123/MAE106_Ogar.git Ogar 
+~$ npm install ./Ogar 	
+~$ npm start 
 ```
 
 Currently, Ogar3 listens on this port(for now):
