@@ -22,7 +22,7 @@ The project is nearly complete. Here's a rough list of what's been done and what
 - [x] Team mode
 - [x] Spectate mode
 - [ ] Admin Commands
-- [ ] Server Logging
+- [x] Server Logging
 - [ ] Chat Filter for Profanity
 - [ ] IP Ban/Kick via Command Line
 - [ ] Seperate Queue Page with Redirect to Game
