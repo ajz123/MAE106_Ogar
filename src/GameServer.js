@@ -572,7 +572,7 @@ GameServer.prototype.getRandomColor = function() {
 GameServer.prototype.loadFiles = function() {
     // Load config
     var fs = require("fs");
-    var fileNameConfig = '/Users/ajzwi/Desktop/og3/src/gameserver.ini';
+    var fileNameConfig = '/Users/ajzwi/Code/og3/src/gameserver.ini';
     var ini = require(this.srcFiles + '/modules/ini.js');
     try {
         if (!fs.existsSync(fileNameConfig)) {
@@ -595,7 +595,7 @@ GameServer.prototype.loadFiles = function() {
     }
 
     // Load bad words
-    var fileNameBadWords = '/Users/ajzwi/Desktop/og3/src/badwords.txt';
+    var fileNameBadWords = '/Users/ajzwi/Code/og3/src/badwords.txt';
     try {
         if (!fs.existsSync(fileNameBadWords)) {
             console.log(fileNameBadWords + " not found");
@@ -614,7 +614,7 @@ GameServer.prototype.loadFiles = function() {
 
     // Load user list
     var UserRoleEnum = require(this.srcFiles + '/enum/UserRoleEnum');
-    var fileNameUsers = '/Users/ajzwi/Desktop/og3/src/enum/userRoles.json';
+    var fileNameUsers = '/Users/ajzwi/Code/og3/src/enum/userRoles.json';
     try {
         this.userList = [];
         if (!fs.existsSync(fileNameUsers)) {
@@ -658,7 +658,7 @@ GameServer.prototype.loadFiles = function() {
     }
 
     // Load ip ban list
-    var fileNameIpBan = '/Users/ajzwi/Desktop/og3/src/ipbanlist.txt';
+    var fileNameIpBan = '/Users/ajzwi/Code/og3/src/ipbanlist.txt';
     try {
         if (fs.existsSync(fileNameIpBan)) {
             // Load and input the contents of the ipbanlist file
