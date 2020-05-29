@@ -702,9 +702,6 @@ GameServer.prototype.loadFiles = function() {
 };
 
 
-
-
-
 GameServer.prototype.addNode = function(node) {
     this.nodes.push(node);
 
@@ -924,15 +921,15 @@ GameServer.prototype.onClientSocketOpen = function(ws) {
 
 //End of test
 
-/* GameServer.prototype.sendMessage = function(message) {
+GameServer.prototype.sendMessage = function(msg) {
     for (var i = 0; i < this.clients.length; i++) {
         if (typeof this.clients[i] == "undefined") {
             continue;
         }
 
-        this.clients[i].playerTracker.socket.sendPacket(new Packet.Message(message));
+        this.clients[i].playerTracker.socket.sendPacket(new Packet.Message(msg));
     }
-} */
+}
 
 GameServer.prototype.updateClients = function() {
     for (var i = 0; i < this.clients.length; i++) {

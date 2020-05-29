@@ -6,7 +6,8 @@ function PacketHandler(gameServer, socket) {
     this.merg = false;
     this.pressW = false;
     this.pressSpace = false;
-	this.massSize = false;
+    this.massSize = false;
+    this.badWords = [];
 }
 
 module.exports = PacketHandler;
@@ -80,7 +81,7 @@ this.merg = true;
 
                 message += String.fromCharCode(charCode);
             }
-            
+            //console.log("here's the message:" + message);
             this.gameServer.sendMessage(message);
         case 255:
             // Connection Start - Send SetBorder packet first
@@ -107,8 +108,20 @@ this.merg = true;
                     break;
                 }
                 message += String.fromCharCode(charCode);
+                
+
+
             }
-            var packet = new Packet.Chat(this.socket.playerTracker, message);
+
+            //Chat message debug
+            console.log("here's the message:" + message);
+
+            //Bad word checker
+            if (this.checkBadWord(message))
+            {   // TODO: LOG that a certain player said a no no word. 
+                var packet = new Packet.Chat(this.socket.playerTracker, "Bad word");}
+            else
+            {var packet = new Packet.Chat(this.socket.playerTracker, message);}
             // Send to all clients (broadcast)
             for (var i = 0; i < this.gameServer.clients.length; i++) {
                 this.gameServer.clients[i].sendPacket(packet);
@@ -131,3 +144,17 @@ PacketHandler.prototype.setNickname = function(newNick) {
 	client.setName(newNick);
 }
 
+PacketHandler.prototype.checkBadWord = function(value) {
+    if (!value) return false;
+    value = value.toLowerCase().trim();
+    //console.log("here's the word: " + value);
+    if (!value) return false;
+    //console.log("still working");
+    for (var i = 0; i < this.gameServer.badWords.length; i++) {
+        //console.log(this.gameServer.badWords[i]);
+        if (value.indexOf(this.gameServer.badWords[i]) >= 0) {
+            return true;
+        }
+    }
+    return false;
+}
