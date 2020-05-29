@@ -2,14 +2,14 @@
 var WebSocket = require('ws');
 var fs = require("fs");
 var ini = require('./modules/ini.js');
-//var Logger = require('./modules/Logger');
-
 
 // Project imports
 var Packet = require('./packet');
 var Entity = require('./entity');
 var PlayerTracker = require('./PlayerTracker');
 var PacketHandler = require('./PacketHandler');
+
+var Logger = require('./modules/Logger');
 var Entity = require('./entity');
 var Gamemode = require('./gamemodes');
 
@@ -17,7 +17,7 @@ var Gamemode = require('./gamemodes');
 function GameServer() {
     this.srcFiles = "../src";
     // Start msg
-    console.log("[Game] Ogar - An open source Agar.io server implementation");
+    Logger.info("Ogar - An open source Agar.io server implementation");
 
     this.lastNodeId = 1;
     this.clients = [];
@@ -39,7 +39,8 @@ function GameServer() {
     // Config
     this.config = { // Border - Right: X increases, Down: Y increases (as of 2015-05-20)
         serverMaxConnections: 200, // Maximum amount of connections to the server.
-        serverPort: 8080, // Server port
+        serverPort: 80, // Server port
+        serverWSModule: 'ws', 
         serverGamemode: 0, // Gamemode, 0 = FFA, 1 = Teams
         serverOldColors: 0,// If the server uses colors from the original Ogar
 		serverBots: 0, // Amount of player bots to spawn (Experimental)
@@ -99,6 +100,9 @@ function GameServer() {
 
 module.exports = GameServer;
 
+
+//GameServer.prototype.
+
 GameServer.prototype.start = function() {
     // Gamemode configurations
     this.gameMode.onServerInit(this);
@@ -111,6 +115,13 @@ GameServer.prototype.start = function() {
     var finalhandler = require('finalhandler');
     var serveStatic = require('serve-static');
 
+    //Some testing stuff, added from mog
+    var PlayerTracker = require('./PlayerTracker');
+    //ws.playerTracker = new PlayerTracker(this, ws);
+    var PacketHandler = require('./PacketHandler');
+    //ws.packetHandler = new PacketHandler(this, ws);
+    var PlayerCommand = require('./modules/PlayerCommand');
+    //ws.playerCommand = new PlayerCommand(this, ws.playerTracker);
 
     var serve = serveStatic(__dirname);
 
@@ -125,6 +136,21 @@ GameServer.prototype.start = function() {
     // Start the server
     this.socketServer = new WebSocket.Server({server: hserver });
 
+    //ws Options
+    this.httpServer = http.createServer();
+    var wsOptions = {
+        server: this.httpServer, 
+        perMessageDeflate: false,
+        maxPayload: 4096
+    };
+
+    //IDK lol
+    //this.WebSocket = require(this.config.serverWsModule);
+    //this.wsServer = new this.WebSocket.Server(wsOptions);
+    //this.wsServer.on('error', this.onServerSocketError.bind(this));
+    //this.wsServer.on('connection', this.onClientSocketOpen.bind(this));
+    //this.httpServer.listen(this.config.serverPort, this.config.serverBind, this.onHttpServerOpen.bind(this));
+
     for (var i = 0; i < this.config.foodStartAmount; i++) {
         this.spawnFood();
     }
@@ -133,8 +159,8 @@ GameServer.prototype.start = function() {
     setInterval(this.mainLoop.bind(this), 1);
 
     // Done
-    console.log("[Game] Listening on port %d", this.config.serverPort);
-    console.log("[Game] Current game mode is "+this.gameMode.name);
+    Logger.info("Listening on port " +this.config.serverPort);
+    Logger.info("Current game mode is "+this.gameMode.name);
 
     // Player bots (Experimental)
     // who needs bots?!
@@ -495,12 +521,12 @@ Press <b>W</b> to eject some mass<br/>
     function connectionEstablished(ws) {
         if (this.clients.length > this.config.serverMaxConnections) {
             ws.close();
-            console.log("[Game] Client tried to connect, but server player limit has been reached!");
+            Logger.write("[Game] Client tried to connect, but server player limit has been reached!");
             return;
         }
 
         function close(error) {
-            console.log("[Game] Disconnect: %s:%d", this.socket.remoteAddress, this.socket.remotePort);
+            Logger.info("Disconnect: "+ this.socket.remoteAddress + "  " +this.socket.remotePort);
             var index = this.server.clients.indexOf(this.socket);
             if (index != -1) {
                 this.server.clients.splice(index, 1);
@@ -510,7 +536,7 @@ Press <b>W</b> to eject some mass<br/>
             this.socket.playerTracker.setStatus(false);
         }
 
-        console.log("[Game] Connect: %s:%d", ws._socket.remoteAddress, ws._socket.remotePort);
+        Logger.info("Connect: " + ws._socket.remoteAddress +"  "+ ws._socket.remotePort);
         ws.remoteAddress = ws._socket.remoteAddress;
         ws.remotePort = ws._socket.remotePort;
         ws.playerTracker = new PlayerTracker(this, ws);
@@ -577,7 +603,7 @@ GameServer.prototype.loadFiles = function() {
     try {
         if (!fs.existsSync(fileNameConfig)) {
             // No config
-            console.log("Config not found... Generating new config");
+            Logger.warn("Config not found... Generating new config");
             // Create a new config
             fs.writeFileSync(fileNameConfig, ini.stringify(this.config), 'utf-8');
         } else {
@@ -586,30 +612,30 @@ GameServer.prototype.loadFiles = function() {
             // Replace all the default config's values with the loaded config's values
             for (var key in load) {
                 if (this.config.hasOwnProperty(key)) this.config[key] = load[key];
-                else console.log("Unknown gameserver.ini value: " + key);
+                else Logger.warn("Unknown gameserver.ini value: " + key);
             }
         }
     } catch (err) {
-        console.log(err.stack);
-        console.log("Failed to load " + fileNameBadWords + ": " + err.message);
+        Logger.writeError(err.stack);
+        Logger.writeError("Failed to load " + fileNameBadWords + ": " + err.message);
     }
 
     // Load bad words
     var fileNameBadWords = '/Users/ajzwi/Code/og3/src/badwords.txt';
     try {
         if (!fs.existsSync(fileNameBadWords)) {
-            console.log(fileNameBadWords + " not found");
+            Logger.warn(fileNameBadWords + " not found");
         } else {
             var words = fs.readFileSync(fileNameBadWords, 'utf-8');
             words = words.split(/[\r\n]+/);
             words = words.map(function(arg) { return arg.trim().toLowerCase(); });
             words = words.filter(function(arg) { return !!arg; });
             this.badWords = words;
-            console.log(this.badWords.length + " bad words loaded");
+            Logger.info(this.badWords.length + " bad words loaded");
         }
     } catch (err) {
-        console.log(err.stack);
-        console.log("Failed to load " + fileNameBadWords + ": " + err.message);
+        Logger.writeError(err.stack);
+        Logger.writeError("Failed to load " + fileNameBadWords + ": " + err.message);
     }
 
     // Load user list
@@ -618,7 +644,7 @@ GameServer.prototype.loadFiles = function() {
     try {
         this.userList = [];
         if (!fs.existsSync(fileNameUsers)) {
-            console.log(fileNameUsers + " is missing.");
+            Logger.writeError(fileNameUsers + " is missing.");
             return;
         }
         var usersJson = fs.readFileSync(fileNameUsers, 'utf-8');
@@ -635,14 +661,14 @@ GameServer.prototype.loadFiles = function() {
                 continue;
             }
             if (!item.password || !item.password.trim() || !item.username || !item.username.trim()) {
-                console.log("User account \"" + item.name + "\" disabled");
+                Logger.info("User account \"" + item.name + "\" disabled");
                 list.splice(i, 1);
                 continue;
             }
             if (item.username) item.username = item.username.trim();
             item.password = item.password.trim();
             if (!UserRoleEnum.hasOwnProperty(item.role)) {
-                console.log("Unknown user role: " + item.role);
+                Logger.warn("Unknown user role: " + item.role);
                 item.role = UserRoleEnum.USER;
             } else {
                 item.role = UserRoleEnum[item.role];
@@ -651,10 +677,10 @@ GameServer.prototype.loadFiles = function() {
             i++;
         }
         this.userList = list;
-        console.log(this.userList.length + " user records loaded.");
+        Logger.info(this.userList.length + " user records loaded.");
     } catch (err) {
-        console.log(err.stack);
-        console.log("Failed to load " + fileNameUsers + ": " + err.message);
+        Logger.writeError(err.stack);
+        Logger.writeError("Failed to load " + fileNameUsers + ": " + err.message);
     }
 
     // Load ip ban list
@@ -665,13 +691,13 @@ GameServer.prototype.loadFiles = function() {
             this.ipBanList = fs.readFileSync(fileNameIpBan, "utf8").split(/[\r\n]+/).filter(function(x) {
                 return x != ''; // filter empty lines
             });
-            console.log(this.ipBanList.length + " IP ban records loaded.");
+            Logger.info(this.ipBanList.length + " IP ban records loaded.");
         } else {
-            console.log(fileNameIpBan + " is missing.");
+            Logger.warn(fileNameIpBan + " is missing.");
         }
     } catch (err) {
-       console.log(err.stack);
-       console.log("Failed to load " + fileNameIpBan + ": " + err.message);
+       Logger.writeError(err.stack);
+       Logger.writeError("Failed to load " + fileNameIpBan + ": " + err.message);
     }
 };
 
@@ -815,6 +841,85 @@ GameServer.prototype.checkBadWord = function(value) {
         }
     }
     return false;
+};
+
+GameServer.prototype.onClientSocketOpen = function(ws) {
+    var logip = ws._socket.remoteAddress + ":" + ws._socket.remotePort;
+    ws.on('error', function(err) {
+        Logger.writeError("[" + logip + "] " + err.stack);
+    });
+    if (this.config.serverMaxConnections && this.socketCount >= this.config.serverMaxConnections) {
+        ws.close(1000, "No slots");
+        return;
+    }
+    if (this.checkIpBan(ws._socket.remoteAddress)) {
+        ws.close(1000, "IP banned");
+        return;
+    }
+    if (this.config.serverIpLimit) {
+        var ipConnections = 0;
+        for (var i = 0; i < this.clients.length; i++) {
+            var socket = this.clients[i];
+            if (!socket.isConnected || socket.remoteAddress != ws._socket.remoteAddress)
+                continue;
+            ipConnections++;
+        }
+        if (ipConnections >= this.config.serverIpLimit) {
+            ws.close(1000, "IP limit reached");
+            return;
+        }
+    }
+    if (this.config.clientBind.length && this.clientBind.indexOf(ws.upgradeReq.headers.origin) < 0) {
+        ws.close(1000, "Client not allowed");
+        return;
+    }
+    ws.isConnected = true;
+    ws.remoteAddress = ws._socket.remoteAddress;
+    ws.remotePort = ws._socket.remotePort;
+    ws.lastAliveTime = Date.now();
+    Logger.write("CONNECTED " + ws.remoteAddress + ":" + ws.remotePort + ", origin: \"" + ws.upgradeReq.headers.origin + "\"");
+    
+    
+    var PlayerTracker = require('./PlayerTracker');
+    ws.playerTracker = new PlayerTracker(this, ws);
+    var PacketHandler = require('./PacketHandler');
+    ws.packetHandler = new PacketHandler(this, ws);
+    var PlayerCommand = require('./modules/PlayerCommand');
+    ws.playerCommand = new PlayerCommand(this, ws.playerTracker);
+    
+    var self = this;
+    ws.on('message', function(message) {
+        if (self.config.serverWsModule === "uws")
+            // uws gives ArrayBuffer - convert it to Buffer
+            message = parseInt(process.version[1]) < 6 ? new Buffer(message) : Buffer.from(message);
+
+        if (!message.length) return;
+        if (message.length > 256) {
+            ws.close(1009, "Spam");
+            return;
+        }
+        ws.packetHandler.handleMessage(message);
+    });
+    ws.on('error', function(error) {
+        ws.packetHandler.sendPacket = function(data) { };
+    });
+    ws.on('close', function(reason) {
+        if (ws._socket.destroy != null && typeof ws._socket.destroy == 'function') {
+            ws._socket.destroy();
+        }
+        self.socketCount--;
+        ws.isConnected = false;
+        ws.packetHandler.sendPacket = function(data) { };
+        ws.closeReason = { reason: ws._closeCode, message: ws._closeMessage };
+        ws.closeTime = Date.now();
+        Logger.write("DISCONNECTED " + ws.remoteAddress + ":" + ws.remotePort + ", code: " + ws._closeCode +
+        ", reason: \"" + ws._closeMessage + "\", name: \"" + ws.playerTracker._name + "\"");
+    });
+    this.socketCount++;
+    this.clients.push(ws);
+    
+    // Check for external minions
+    this.checkMinion(ws);
 };
 
 //End of test
@@ -1298,7 +1403,7 @@ GameServer.prototype.loadConfig = function() {
         this.config = ini.parse(fs.readFileSync('./gameserver.ini', 'utf-8'));
     } catch (err) {
         // No config
-        console.log("[Game] Config not found... Generating new config");
+        Logger.warn("Config not found... Generating new config");
 
         // Create a new config
         fs.writeFileSync('./gameserver.ini', ini.stringify(this.config));

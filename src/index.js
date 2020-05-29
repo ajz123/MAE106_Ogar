@@ -1,9 +1,9 @@
-//var Logger = require('./modules/Logger');
+var Logger = require('./modules/Logger');
 
 var runMaster = false;
 var runGame = true;
 
-//Logger.start();
+Logger.start();
 
 process.argv.forEach(function(val) {
     if (val == "--master") {
