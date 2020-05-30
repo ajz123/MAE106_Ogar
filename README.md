@@ -2,9 +2,12 @@
 
 An open source Agar.io server implementation, written in Node.js.
 
-## Original Author
+## Original Authors
 Please find his project here: https://github.com/Faris90/Ogar3.<br>
 This project is largely based on his code, so big thanks to him!<br>
+
+Additionally, I used the Admin Console from the following project: <br>
+https://github.com/ArixProject/MultiOgar-Edited-Unlimited <br>
 
 ## THIS IS STILL IN PROGRESS
 ## Project Status
