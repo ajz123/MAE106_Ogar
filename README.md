@@ -24,7 +24,8 @@ The project is nearly complete. Here's a rough list of what's been done and what
 - [ ] Admin Commands
 - [x] Server Logging
 - [x] Chat Filter for Profanity
-- [ ] IP Ban/Kick via Command Line
+- [x] IP Ban
+- [ ] Kick Players via Command Line
 - [ ] Seperate Queue Page with Redirect to Game
 
 
