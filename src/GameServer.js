@@ -514,6 +514,13 @@ Press <b>W</b> to eject some mass<br/>
             return;
         }
 
+        //The part that bans you if you are a naughty boi.
+        if (this.checkIpBan(ws._socket.remoteAddress)) {
+            Logger.write(ws._socket.remoteAddress + "tried to connect, but they are banned from this server. OOF!");
+            ws.close();
+            return;
+        }
+
         function close(error) {
             Logger.info("Disconnect: "+ this.socket.remoteAddress + "  " +this.socket.remotePort);
             var index = this.server.clients.indexOf(this.socket);
@@ -524,6 +531,7 @@ Press <b>W</b> to eject some mass<br/>
             // Switch online flag off
             this.socket.playerTracker.setStatus(false);
         }
+
 
         Logger.info("Connect: " + ws._socket.remoteAddress +"  "+ ws._socket.remotePort);
         ws.remoteAddress = ws._socket.remoteAddress;
@@ -539,6 +547,30 @@ Press <b>W</b> to eject some mass<br/>
         this.clients.push(ws);
     }
 }
+
+GameServer.prototype.checkIpBan = function(ipAddress) {
+    if (!this.ipBanList || !this.ipBanList.length || ipAddress == "127.0.0.1") {
+        return false;
+    }
+    if (this.ipBanList.indexOf(ipAddress) >= 0) {
+        return true;
+    }
+    var ipBin = ipAddress.split('.');
+    if (ipBin.length != 4) {
+        // unknown IP format
+        return false;
+    }
+    var subNet2 = ipBin[0] + "." + ipBin[1] + ".*.*";
+    if (this.ipBanList.indexOf(subNet2) >= 0) {
+        return true;
+    }
+    var subNet1 = ipBin[0] + "." + ipBin[1] + "." + ipBin[2] + ".*";
+    if (this.ipBanList.indexOf(subNet1) >= 0) {
+        return true;
+    }
+    return false;
+}
+
 
 GameServer.prototype.getMode = function() {
     return this.gameMode;
@@ -912,6 +944,7 @@ GameServer.prototype.onClientSocketOpen = function(ws) {
 //End of test
 
 GameServer.prototype.sendMessage = function(msg) {
+    console.log("message is: " + msg);
     for (var i = 0; i < this.clients.length; i++) {
         if (typeof this.clients[i] == "undefined") {
             continue;

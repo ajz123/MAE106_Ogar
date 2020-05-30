@@ -1,9 +1,9 @@
-=== Started 2020-05-29T17-17-54-385 ===
-[INFO ][17:17:54] Ogar - An open source Agar.io server implementation
-[INFO ][17:17:54] 419 bad words loaded
-[INFO ][17:17:54] 3 user records loaded.
-[INFO ][17:17:54] 1 IP ban records loaded.
-[INFO ][17:17:54] Listening on port 80
-[INFO ][17:17:54] Current game mode is Free For All
-[INFO ][17:18:00] Connect: ::1  54837
-[INFO ][17:18:30] Disconnect: ::1  54837
+=== Started 2020-05-29T23-55-10-126 ===
+[INFO ][23:55:10] Ogar - An open source Agar.io server implementation
+[INFO ][23:55:10] 419 bad words loaded
+[INFO ][23:55:10] 3 user records loaded.
+[INFO ][23:55:10] 1 IP ban records loaded.
+[INFO ][23:55:10] Listening on port 80
+[INFO ][23:55:10] Current game mode is Free For All
+[INFO ][23:55:11] Connect: ::1  57282
+[INFO ][23:55:19] Disconnect: ::1  57282

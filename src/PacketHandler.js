@@ -116,6 +116,14 @@ this.merg = true;
             //Chat message debug
             console.log("here's the message:" + message);
 
+            //Command Checker
+            if (message[0] =='/') {
+                // player command
+                message = message.slice(1, message.length);
+                //this is causing a lot of problems!!
+                //from.socket.playerCommand.executeCommandLine(message);
+                return; }
+
             //Bad word checker
             if (this.checkBadWord(message))
             {   // TODO: LOG that a certain player said a no no word. 
@@ -161,7 +169,7 @@ PacketHandler.prototype.checkBadWord = function(value) {
 
 PacketHandler.prototype.Command = function(val)
 {
-    
+
 
 
 
