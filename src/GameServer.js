@@ -620,7 +620,7 @@ GameServer.prototype.getRandomColor = function() {
 GameServer.prototype.loadFiles = function() {
     // Load config
     var fs = require("fs");
-    var fileNameConfig = '/Users/ajzwi/Code/og3/src/gameserver.ini';
+    var fileNameConfig = './src/gameserver.ini';
     var ini = require(this.srcFiles + '/modules/ini.js');
     try {
         if (!fs.existsSync(fileNameConfig)) {
@@ -643,7 +643,7 @@ GameServer.prototype.loadFiles = function() {
     }
 
     // Load bad words
-    var fileNameBadWords = '/Users/ajzwi/Code/og3/src/badwords.txt';
+    var fileNameBadWords = './src/badwords.txt';
     try {
         if (!fs.existsSync(fileNameBadWords)) {
             Logger.warn(fileNameBadWords + " not found");
@@ -944,7 +944,6 @@ GameServer.prototype.onClientSocketOpen = function(ws) {
 //End of test
 
 GameServer.prototype.sendMessage = function(msg) {
-    console.log("message is: " + msg);
     for (var i = 0; i < this.clients.length; i++) {
         if (typeof this.clients[i] == "undefined") {
             continue;

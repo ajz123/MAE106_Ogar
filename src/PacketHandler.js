@@ -114,7 +114,7 @@ this.merg = true;
             }
 
             //Chat message debug
-            console.log("here's the message:" + message);
+            //console.log("here's the message:" + message);
 
             //Command Checker
             if (message[0] =='/') {
