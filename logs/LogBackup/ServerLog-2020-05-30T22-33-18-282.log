@@ -1,0 +1,19 @@
+=== Started 2020-05-30T22-33-14-250 ===
+[INFO ][22:33:14] Ogar - An open source Agar.io server implementation
+[INFO ][22:33:14] 419 bad words loaded
+[ERROR][22:33:14] /Users/ajzwi/Code/og3/src/enum/userRoles.json is missing.
+[INFO ][22:33:14] Listening on port 80
+[INFO ][22:33:14] Current game mode is Free For All
+[FATAL][22:33:14] Error: listen EACCES: permission denied 0.0.0.0:80
+    at Server.setupListenHandle [as _listen2] (net.js:1296:21)
+    at listenInCluster (net.js:1361:12)
+    at Server.listen (net.js:1447:7)
+    at GameServer.start (/home/chadtrung/Ogar/src/GameServer.js:129:13)
+    at Object.<anonymous> (/home/chadtrung/Ogar/src/index.js:48:10)
+    at Module._compile (internal/modules/cjs/loader.js:1138:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)
+    at Module.load (internal/modules/cjs/loader.js:986:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:879:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:71:12)
+[DEBUG][22:33:14] process.exit(3)
+=== Shutdown 2020-05-30T22-33-14-311 ===

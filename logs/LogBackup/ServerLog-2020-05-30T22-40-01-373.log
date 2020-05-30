@@ -1,0 +1,7 @@
+=== Started 2020-05-30T22-38-51-625 ===
+[INFO ][22:38:51] Ogar - An open source Agar.io server implementation
+[INFO ][22:38:51] 419 bad words loaded
+[ERROR][22:38:51] /Users/ajzwi/Code/og3/src/enum/userRoles.json is missing.
+[INFO ][22:38:51] Listening on port 80
+[INFO ][22:38:51] Current game mode is Free For All
+[INFO ][22:38:56] Connect: ::ffff:76.218.82.23  61564
