@@ -190,7 +190,7 @@
       // Store the connection method so we can loop through & contact all clients
       clients[id] = ws;
       
-      console.log((new Date()) +" "+ ws.upgradeReq.headers.host+ ' Connection [' + id + '] accepted '+ws._socket.remoteAddress);
+      console.log((new Date()) +" "+ ws.upgradeReq.header.host+ ' Connection [' + id + '] accepted '+ws._socket.remoteAddress);
 
       // Create event listener
       ws.on('message', function(message) {

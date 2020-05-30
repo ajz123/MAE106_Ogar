@@ -8,6 +8,7 @@ var Packet = require('./packet');
 var Entity = require('./entity');
 var PlayerTracker = require('./PlayerTracker');
 var PacketHandler = require('./PacketHandler');
+var PlayerCommand = require('./modules/PlayerCommand');
 
 var Logger = require('./modules/Logger');
 var Entity = require('./entity');
@@ -51,10 +52,13 @@ function GameServer() {
         borderTop: 0, // Top border of map (Vanilla value: 0)
         borderBottom: 6000, // Bottom border of map (Vanilla value: 11180.3398875)
         spawnInterval: 20, // The interval between each food cell spawn in ticks (1 tick = 50 ms)
-        foodSpawnAmount: 10, // The amount of food to spawn per interval
-        foodStartAmount: 100, // The starting amount of food in the map
-        foodMaxAmount: 500, // Maximum food cells on the map
-        foodMass: 1, // Starting food size (In mass)
+
+        //CHANGE THE NEXT TWO VALUES TO DISABLE EATING -> 10, 100, 500, 1 in that order : for no food change both to 0.
+
+        foodSpawnAmount: 0, // The amount of food to spawn per interval
+        foodStartAmount: 0, // The starting amount of food in the map
+        foodMaxAmount: 0, // Maximum food cells on the map
+        foodMass: 0, // Starting food size (In mass)
 	//foodMaxMass: 4,
         virusMinAmount: 10, // Minimum amount of viruses on the map.
         virusMaxAmount: 50, // Maximum amount of viruses on the map. If this amount is reached, then ejected cells will pass through viruses.
@@ -115,14 +119,6 @@ GameServer.prototype.start = function() {
     var finalhandler = require('finalhandler');
     var serveStatic = require('serve-static');
 
-    //Some testing stuff, added from mog
-    var PlayerTracker = require('./PlayerTracker');
-    //ws.playerTracker = new PlayerTracker(this, ws);
-    var PacketHandler = require('./PacketHandler');
-    //ws.packetHandler = new PacketHandler(this, ws);
-    var PlayerCommand = require('./modules/PlayerCommand');
-    //ws.playerCommand = new PlayerCommand(this, ws.playerTracker);
-
     var serve = serveStatic(__dirname);
 
     var hserver = http.createServer(function(req, res){
@@ -143,13 +139,6 @@ GameServer.prototype.start = function() {
         perMessageDeflate: false,
         maxPayload: 4096
     };
-
-    //IDK lol
-    //this.WebSocket = require(this.config.serverWsModule);
-    //this.wsServer = new this.WebSocket.Server(wsOptions);
-    //this.wsServer.on('error', this.onServerSocketError.bind(this));
-    //this.wsServer.on('connection', this.onClientSocketOpen.bind(this));
-    //this.httpServer.listen(this.config.serverPort, this.config.serverBind, this.onHttpServerOpen.bind(this));
 
     for (var i = 0; i < this.config.foodStartAmount; i++) {
         this.spawnFood();
@@ -541,6 +530,7 @@ Press <b>W</b> to eject some mass<br/>
         ws.remotePort = ws._socket.remotePort;
         ws.playerTracker = new PlayerTracker(this, ws);
         ws.packetHandler = new PacketHandler(this, ws);
+        ws.PlayerCommand = new PlayerCommand(this, ws.PlayerTracker);
         ws.on('message', ws.packetHandler.handleMessage.bind(ws.packetHandler));
 
         var bindObject = { server: this, socket: ws };
@@ -699,7 +689,7 @@ GameServer.prototype.loadFiles = function() {
        Logger.writeError(err.stack);
        Logger.writeError("Failed to load " + fileNameIpBan + ": " + err.message);
     }
-};
+}
 
 
 GameServer.prototype.addNode = function(node) {
@@ -796,7 +786,7 @@ GameServer.prototype.mainLoop = function() {
 }
 
 //Profanity filter test
-GameServer.prototype.onChatMessage = function(message) {
+/*GameServer.prototype.onChatMessage = function(message) {
     if (!message) return;
     message = message.trim();
     if (message === "") return;
@@ -826,9 +816,9 @@ GameServer.prototype.onChatMessage = function(message) {
         return;
     }
     this.sendMessage(message);
-};
+};*/
 
-GameServer.prototype.checkBadWord = function(value) {
+/*GameServer.prototype.checkBadWord = function(value) {
     if (!value) return false;
     value = value.toLowerCase().trim();
     if (!value) return false;
@@ -838,7 +828,7 @@ GameServer.prototype.checkBadWord = function(value) {
         }
     }
     return false;
-};
+};*/
 
 GameServer.prototype.onClientSocketOpen = function(ws) {
     var logip = ws._socket.remoteAddress + ":" + ws._socket.remotePort;

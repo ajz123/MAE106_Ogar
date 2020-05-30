@@ -158,3 +158,15 @@ PacketHandler.prototype.checkBadWord = function(value) {
     }
     return false;
 }
+
+PacketHandler.prototype.Command = function(val)
+{
+    
+
+
+
+
+
+
+
+}
