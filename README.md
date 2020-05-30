@@ -8,9 +8,8 @@ This project is largely based on his code, so big thanks to him!<br>
 
 ## THIS IS CURRENTLY IN THE MAKING
 ## Project Status
-The project is nearly complete. Here's a rough list of what's been done and what needs to be done:
+Here are the features previously implemented:
 
-- [x] Master server basic implementation
 - [x] Game server basic implementation (clients can connect)
 - [x] Single-cell movement
 - [x] Randomly generated cells and viruses
@@ -19,7 +18,9 @@ The project is nearly complete. Here's a rough list of what's been done and what
 - [x] Multi-cell player movement
 - [x] Cells eating other cells
 - [x] Leaderboard
-- [x] Team mode
+
+Here are the features that I added/plan to add:
+
 - [x] Spectate mode
 - [ ] Admin Commands
 - [x] Server Logging
