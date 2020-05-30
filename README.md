@@ -6,7 +6,7 @@ An open source Agar.io server implementation, written in Node.js.
 Please find his project here: https://github.com/Faris90/Ogar3.<br>
 This project is largely based on his code, so big thanks to him!<br>
 
-## THIS IS CURRENTLY IN THE MAKING
+## THIS IS STILL IN PROGRESS
 ## Project Status
 Here are the features previously implemented:
 
