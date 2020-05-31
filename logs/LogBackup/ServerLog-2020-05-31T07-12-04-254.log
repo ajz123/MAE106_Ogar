@@ -1,0 +1,17 @@
+=== Started 2020-05-31T07-10-47-375 ===
+[INFO ][07:10:47] Ogar - An open source Agar.io server implementation
+[INFO ][07:10:47] 418 bad words loaded
+[ERROR][07:10:47] /Users/ajzwi/Code/og3/src/enum/userRoles.json is missing.
+[INFO ][07:10:47] Listening on port 80
+[INFO ][07:10:47] Current game mode is Free For All
+[INFO ][07:10:58] Connect: ::ffff:76.218.82.23  52272
+[INFO ][07:11:01] aaa has joined the server!
+[NONE ][07:11:04] you are pressing the shift key
+[FATAL][07:11:04] TypeError: Cannot read property 'length' of undefined
+    at PlayerTracker.update (/home/chadtrung/OgarTest2/OgarFinal/src/PlayerTracker.js:96:56)
+    at GameServer.updateClients (/home/chadtrung/OgarTest2/OgarFinal/src/GameServer.js:967:39)
+    at GameServer.mainLoop (/home/chadtrung/OgarTest2/OgarFinal/src/GameServer.js:793:14)
+    at listOnTimeout (internal/timers.js:549:17)
+    at processTimers (internal/timers.js:492:7)
+[DEBUG][07:11:04] process.exit(3)
+=== Shutdown 2020-05-31T07-11-04-493 ===

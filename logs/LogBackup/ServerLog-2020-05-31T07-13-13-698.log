@@ -1,0 +1,17 @@
+=== Started 2020-05-31T07-12-04-254 ===
+[INFO ][07:12:04] Ogar - An open source Agar.io server implementation
+[INFO ][07:12:04] 418 bad words loaded
+[ERROR][07:12:04] /Users/ajzwi/Code/og3/src/enum/userRoles.json is missing.
+[INFO ][07:12:04] Listening on port 80
+[INFO ][07:12:04] Current game mode is Free For All
+[INFO ][07:12:06] Connect: ::ffff:76.218.82.23  52293
+[INFO ][07:12:08] a has joined the server!
+[NONE ][07:12:08] you are pressing the shift key
+[FATAL][07:12:08] TypeError: Cannot read property 'clients' of undefined
+    at PlayerTracker.update (/home/chadtrung/OgarTest2/OgarFinal/src/PlayerTracker.js:96:53)
+    at GameServer.updateClients (/home/chadtrung/OgarTest2/OgarFinal/src/GameServer.js:967:39)
+    at GameServer.mainLoop (/home/chadtrung/OgarTest2/OgarFinal/src/GameServer.js:793:14)
+    at listOnTimeout (internal/timers.js:549:17)
+    at processTimers (internal/timers.js:492:7)
+[DEBUG][07:12:08] process.exit(3)
+=== Shutdown 2020-05-31T07-12-08-792 ===

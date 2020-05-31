@@ -1,0 +1,15 @@
+=== Started 2020-05-31T07-07-16-431 ===
+[INFO ][07:07:16] Ogar - An open source Agar.io server implementation
+[INFO ][07:07:16] 418 bad words loaded
+[ERROR][07:07:16] /Users/ajzwi/Code/og3/src/enum/userRoles.json is missing.
+[INFO ][07:07:16] Listening on port 80
+[INFO ][07:07:16] Current game mode is Free For All
+[INFO ][07:07:20] Connect: ::ffff:76.218.82.23  52219
+[FATAL][07:07:20] ReferenceError: socket is not defined
+    at PlayerTracker.update (/home/chadtrung/OgarTest2/OgarFinal/src/PlayerTracker.js:93:16)
+    at GameServer.updateClients (/home/chadtrung/OgarTest2/OgarFinal/src/GameServer.js:967:39)
+    at GameServer.mainLoop (/home/chadtrung/OgarTest2/OgarFinal/src/GameServer.js:793:14)
+    at listOnTimeout (internal/timers.js:549:17)
+    at processTimers (internal/timers.js:492:7)
+[DEBUG][07:07:20] process.exit(3)
+=== Shutdown 2020-05-31T07-07-20-621 ===

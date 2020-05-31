@@ -1,0 +1,77 @@
+=== Started 2020-05-31T05-49-21-618 ===
+[INFO ][05:49:21] Ogar - An open source Agar.io server implementation
+[INFO ][05:49:21] 419 bad words loaded
+[ERROR][05:49:21] /Users/ajzwi/Code/og3/src/enum/userRoles.json is missing.
+[INFO ][05:49:21] Listening on port 80
+[INFO ][05:49:21] Current game mode is Free For All
+[INFO ][05:49:28] Connect: ::ffff:76.218.82.23  49200
+[INFO ][05:49:37] Admin has joined the server!
+[INFO ][05:49:55] Connect: ::ffff:98.164.241.103  53375
+[INFO ][05:49:58] Kenneth has joined the server!
+[INFO ][05:50:01] Connect: ::ffff:76.218.82.23  49225
+[INFO ][05:50:34] Kenneth has joined the server!
+[INFO ][05:50:39] Kenneth has joined the server!
+[INFO ][05:50:43] Kenneth has joined the server!
+[INFO ][05:50:46] Connect: ::ffff:72.211.203.201  60169
+[INFO ][05:50:52] KEVIN has joined the server!
+[INFO ][05:51:12] Disconnect: ::ffff:72.211.203.201  60169
+[INFO ][05:51:12] Connect: ::ffff:72.211.203.201  60178
+[INFO ][05:51:17] KEVIN has joined the server!
+[INFO ][05:51:20] Kenneth has joined the server!
+[INFO ][05:51:25] Kenneth has joined the server!
+[INFO ][05:51:33] Kenneth has joined the server!
+[INFO ][05:51:36] Kenneth has joined the server!
+[INFO ][05:51:38] Kenneth has joined the server!
+[INFO ][05:51:47] Kenneth has joined the server!
+[INFO ][05:51:52] Kenneth has joined the server!
+[INFO ][05:56:01] Disconnect: ::ffff:76.218.82.23  49200
+[INFO ][05:56:39] Disconnect: ::ffff:76.218.82.23  49225
+[INFO ][05:59:25] Connect: ::ffff:128.195.99.211  1358
+[INFO ][05:59:35] shruggy has joined the server!
+[INFO ][06:03:20] Connect: ::ffff:70.187.162.73  60664
+[INFO ][06:03:45] Br Le has joined the server!
+[INFO ][06:05:12] Disconnect: ::ffff:128.195.99.211  1358
+[INFO ][06:08:33] Connect: ::ffff:72.211.219.27  61523
+[INFO ][06:08:38] weien has joined the server!
+[INFO ][06:08:55] Connect: ::ffff:70.187.162.166  59153
+[INFO ][06:09:06]  has joined the server!
+[INFO ][06:09:34] Disconnect: ::ffff:70.187.162.166  59153
+[INFO ][06:09:36] Connect: ::ffff:70.187.162.166  59166
+[INFO ][06:09:41]  has joined the server!
+[INFO ][06:09:57] Connect: ::ffff:76.218.82.23  50108
+[INFO ][06:10:01] Disconnect: ::ffff:76.218.82.23  50108
+[INFO ][06:10:03] Disconnect: ::ffff:70.187.162.166  59166
+[INFO ][06:10:04] Connect: ::ffff:70.187.162.166  59172
+[INFO ][06:10:06]  has joined the server!
+[INFO ][06:10:19] Disconnect: ::ffff:70.187.162.166  59172
+[INFO ][06:10:21] Connect: ::ffff:70.187.162.166  59186
+[INFO ][06:10:23]  has joined the server!
+[INFO ][06:10:41] Disconnect: ::ffff:70.187.162.166  59186
+[INFO ][06:10:43] Connect: ::ffff:70.187.162.166  59193
+[INFO ][06:10:45]  has joined the server!
+[INFO ][06:10:50] Disconnect: ::ffff:70.187.162.166  59193
+[INFO ][06:10:55] Connect: ::ffff:70.187.162.166  59204
+[INFO ][06:10:57]  has joined the server!
+[INFO ][06:11:03] Disconnect: ::ffff:70.187.162.166  59204
+[INFO ][06:11:04] Connect: ::ffff:70.187.162.166  59209
+[INFO ][06:11:08]  has joined the server!
+[INFO ][06:13:27] Disconnect: ::ffff:70.187.162.166  59209
+[INFO ][06:13:28] Connect: ::ffff:70.187.162.166  59246
+[INFO ][06:13:30]  has joined the server!
+[INFO ][06:13:44] Disconnect: ::ffff:70.187.162.166  59246
+[INFO ][06:13:45] Connect: ::ffff:70.187.162.166  59252
+[INFO ][06:13:48]  has joined the server!
+[INFO ][06:14:02] Disconnect: ::ffff:70.187.162.166  59252
+[INFO ][06:14:03] Connect: ::ffff:70.187.162.166  59256
+[INFO ][06:14:06]  has joined the server!
+[INFO ][06:15:09] Disconnect: ::ffff:70.187.162.166  59256
+[INFO ][06:15:11] Connect: ::ffff:70.187.162.166  59271
+[INFO ][06:15:14] Connect: ::ffff:47.152.196.163  52489
+[INFO ][06:15:15]  has joined the server!
+[INFO ][06:15:56]  has joined the server!
+[INFO ][06:16:05] Disconnect: ::ffff:47.152.196.163  52489
+[INFO ][06:16:30] Connect: ::ffff:47.152.196.163  52548
+[INFO ][06:16:54] Disconnect: ::ffff:70.187.162.166  59271
+[INFO ][06:16:55] Connect: ::ffff:70.187.162.166  59296
+[INFO ][06:17:01]  has joined the server!
+[INFO ][06:17:09] Connect: ::ffff:76.218.82.23  50400

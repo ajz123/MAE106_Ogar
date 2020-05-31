@@ -87,6 +87,7 @@
 
         var spacePressed = false,
             qPressed = false,
+            shiftPressed = false,
             wPressed = false;
         wHandle.onkeydown = function (event) {
             switch (event.keyCode) {
@@ -95,6 +96,12 @@
                         sendMouseMove();
                         sendUint8(17);
                         spacePressed = true;
+                    }
+                    break;
+                case 16: //switch current spectator view - s key
+                     if ((!shiftPressed) && (!isTyping)) {
+                        sendUint8(30);
+                        shiftPressed = true;
                     }
                     break;
                 case 81: // key q pressed
@@ -134,6 +141,9 @@
         };
         wHandle.onkeyup = function (event) {
             switch (event.keyCode) {
+                case 16:
+                    shiftPressed = false;
+                    break;
                 case 32:
                     spacePressed = false;
                     break;
@@ -150,7 +160,7 @@
         };
         wHandle.onblur = function () {
             sendUint8(19);
-            wPressed = qPressed = spacePressed = false
+            wPressed = qPressed = spacePressed = shiftPressed = false
         };
 
         wHandle.onresize = canvasResize;

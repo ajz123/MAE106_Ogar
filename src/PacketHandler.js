@@ -7,6 +7,7 @@ function PacketHandler(gameServer, socket) {
     this.merg = false;
     this.pressW = false;
     this.pressSpace = false;
+    this.pressShift = false;
     this.massSize = false;
     this.badWords = [];
 }
@@ -51,6 +52,10 @@ PacketHandler.prototype.handleMessage = function(message) {
                 // Make sure client has no cells
                 this.socket.playerTracker.spectate = true;
             }
+            break;
+        case 30:
+            // Shift Press - Spectator Switch Mode
+            this.pressShift = true;
             break;
         case 16:
             // Mouse Move

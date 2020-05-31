@@ -81,12 +81,19 @@ PlayerTracker.prototype.getTeam = function() {
 // Functions
 
 PlayerTracker.prototype.update = function() {
-	// Actions buffer
+    // Actions buffer
+    if (this.socket.packetHandler.pressShift) {
+        //Change Spectator Perspective
+        //console.log("you are pressing the shift key");
+        this.socket.packetHandler.pressShift = false;
+    }    
     if (this.socket.packetHandler.pressSpace) {
         // Split cell
+        //console.log("you are pressing space");
         this.gameServer.splitCells(this);
         this.socket.packetHandler.pressSpace = false;
     }
+    //I HAVE NO IDEA IF THIS WORKS.
 	  if (this.socket.packetHandler.massSize ) {
         // Split cell
         this.gameServer.gainMass(this);
@@ -190,15 +197,67 @@ PlayerTracker.prototype.updateCenter = function() { // Get center of cells
 PlayerTracker.prototype.calcViewBox = function() {
     if (this.spectate) {
         // Spectate mode
-        this.spectatedPlayer = this.gameServer.gameMode.rankOne;
+
+        //Generate random number for spectator
+        var playerswitch = Math.floor(Math.random() * 10);
+
+        switch (playerswitch) {
+            case 0:
+                this.spectatedPlayer = this.gameServer.gameMode.rankOne;
+                break;
+
+            /*case 1:
+                this.spectatedPlayer = this.gameServer.gameMode.rankTwo;
+                break;
+
+            case 2:
+                this.spectatedPlayer = this.gameServer.gameMode.rankThree;
+                break;
+
+            case 3:
+                this.spectatedPlayer = this.gameServer.gameMode.rankFour;
+                break;
+
+            case 4:
+                this.spectatedPlayer = this.gameServer.gameMode.rankFive;
+                break;
+
+            case 5:
+                this.spectatedPlayer = this.gameServer.gameMode.rankSix;
+                break;
+
+            case 6:
+                this.spectatedPlayer = this.gameServer.gameMode.rankSeven;
+                break;
+
+            case 7:
+                this.spectatedPlayer = this.gameServer.gameMode.rankEight;
+                break;
+
+            case 8:
+                this.spectatedPlayer = this.gameServer.gameMode.rankNine;
+                break;
+
+            case 9:
+                this.spectatedPlayer = this.gameServer.gameMode.rankTen;
+                break;*/
+            default:
+                this.spectatedPlayer = this.gameServer.gameMode.rankOne;
+        }
+        
+        if (this.gameServer.gameMode.lblength < 9)
+            {this.spectatedPlayer = this.gameServer.gameMode.rankOne;}
+
+
+        //this.spectatedPlayer = this.gameServer.gameMode.rankOne;
         if (this.spectatedPlayer) {
             //console.log("entering spectate function");
             // Get spectated player's location and calculate zoom amount
             var specZoom = Math.sqrt(100 * this.spectatedPlayer.score);
             specZoom = Math.pow(Math.min(40.5 / specZoom, 1.0), 0.4) * 0.75;
             //IDK LOL
-            this.socket.sendPacket(new Packet.UpdatePosition(3000,3000,.18));
-            //this.socket.sendPacket(new Packet.UpdatePosition(this.spectatedPlayer.centerPos.x,this.spectatedPlayer.centerPos.y,specZoom));
+            //this.socket.sendPacket(new Packet.UpdatePosition(3000,3000,.18));
+            this.socket.sendPacket(new Packet.UpdatePosition(this.spectatedPlayer.centerPos.x,this.spectatedPlayer.centerPos.y,specZoom));
             return this.spectatedPlayer.visibleNodes;
         } else {
 
@@ -217,6 +276,15 @@ PlayerTracker.prototype.calcViewBox = function() {
     this.viewBox.leftX = this.centerPos.x - this.sightRange;
     this.viewBox.rightX = this.centerPos.x + this.sightRange;
     this.viewBox.width = this.sightRange;
+
+    //If spectator has longer view range
+    /*if (this.spectatedPlayer) {
+    this.viewBox.topY = 0;
+    this.viewBox.bottomY = 6000;
+    this.viewBox.leftX = 0;
+    this.viewBox.rightX = 6000;
+    this.viewBox.width = 6000;
+    }*/
 	
     var newVisible = [];
     for (var i = 0; i < this.gameServer.nodes.length ;i++) {

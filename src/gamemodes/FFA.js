@@ -60,7 +60,17 @@ FFA.prototype.updateLB = function(gameServer) {
             }
         }
     }
-	
-	this.rankOne = lb[0];
+    
+    this.lblength = lb.length;
+    this.rankOne = lb[0];
+    this.rankTwo = lb[1];
+    this.rankThree = lb[2];
+    this.rankFour = lb[3];
+    this.rankFive = lb[4];
+    this.rankSix = lb[5];
+    this.rankSeven = lb[6];
+    this.rankEight = lb[7];
+    this.rankNine = lb[8];
+    this.rankTen = lb[9];
 }
 

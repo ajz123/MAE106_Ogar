@@ -88,6 +88,7 @@ function GameServer() {
     this.minionTest = [];
     this.userList = [];
     this.badWords = [];
+    this.shiftCount = 0;
     this.loadFiles();
     
     // Parse config
