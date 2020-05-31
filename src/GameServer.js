@@ -982,7 +982,7 @@ var f = new Entity.Food(this.getNextNodeId(), null, this.getRandomPosition(), Ma
 // THIS IS THE PART THAT TOGGLES FOOD
 // REMOVE THE "!" to remove food and SAVE FILE!!!!
 
-    if (!this.config.foodtoggle) {
+    if (this.config.foodtoggle) {
     this.addNode(f);
     this.currentFood++; }
 }
