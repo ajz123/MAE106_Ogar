@@ -55,10 +55,11 @@ function GameServer() {
 
         //CHANGE THE NEXT TWO VALUES TO DISABLE EATING -> 10, 100, 500, 1 in that order : for no food change both to 0.
 
-        foodSpawnAmount: 0, // The amount of food to spawn per interval
-        foodStartAmount: 0, // The starting amount of food in the map
-        foodMaxAmount: 0, // Maximum food cells on the map
-        foodMass: 0, // Starting food size (In mass)
+        foodtoggle: 1, //set to 1 if you want food!
+        foodSpawnAmount: 10, // The amount of food to spawn per interval
+        foodStartAmount: 100, // The starting amount of food in the map
+        foodMaxAmount: 500, // Maximum food cells on the map
+        foodMass: 1, // Starting food size (In mass)
 	//foodMaxMass: 4,
         virusMinAmount: 10, // Minimum amount of viruses on the map.
         virusMaxAmount: 50, // Maximum amount of viruses on the map. If this amount is reached, then ejected cells will pass through viruses.
@@ -623,7 +624,7 @@ GameServer.prototype.getRandomColor = function() {
 GameServer.prototype.loadFiles = function() {
     // Load config
     var fs = require("fs");
-    var fileNameConfig = '/Users/ajzwi/Code/og3/src/gameserver.ini';
+    var fileNameConfig = './src/gameserver.ini';
     var ini = require(this.srcFiles + '/modules/ini.js');
     try {
         if (!fs.existsSync(fileNameConfig)) {
@@ -646,7 +647,7 @@ GameServer.prototype.loadFiles = function() {
     }
 
     // Load bad words
-    var fileNameBadWords = '/Users/ajzwi/Code/og3/src/badwords.txt';
+    var fileNameBadWords = './src/badwords.txt';
     try {
         if (!fs.existsSync(fileNameBadWords)) {
             Logger.warn(fileNameBadWords + " not found");
@@ -947,7 +948,6 @@ GameServer.prototype.onClientSocketOpen = function(ws) {
 //End of test
 
 GameServer.prototype.sendMessage = function(msg) {
-    console.log("message is: " + msg);
     for (var i = 0; i < this.clients.length; i++) {
         if (typeof this.clients[i] == "undefined") {
             continue;
@@ -978,9 +978,16 @@ GameServer.prototype.spawnFood = function() {
 var f = new Entity.Food(this.getNextNodeId(), null, this.getRandomPosition(), Math.floor(Math.random() * this.config.foodMaxMass) + this.config.foodMass);
   f.setColor(this.getRandomColor());
 
+
+// THIS IS THE PART THAT TOGGLES FOOD
+// REMOVE THE "!" to remove food and SAVE FILE!!!!
+
+    if (!this.config.foodtoggle) {
     this.addNode(f);
-    this.currentFood++;
+    this.currentFood++; }
 }
+
+//***************************************************** */
 
 GameServer.prototype.spawnPlayer = function(client) {
    if(this.config.serverGameMode == 2) {

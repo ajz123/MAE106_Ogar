@@ -2,15 +2,17 @@
 
 An open source Agar.io server implementation, written in Node.js.
 
-## Original Author
+## Original Authors
 Please find his project here: https://github.com/Faris90/Ogar3.<br>
 This project is largely based on his code, so big thanks to him!<br>
 
-## THIS IS CURRENTLY IN THE MAKING
-## Project Status
-The project is nearly complete. Here's a rough list of what's been done and what needs to be done:
+Additionally, I used the Admin Console from the following project: <br>
+https://github.com/ArixProject/MultiOgar-Edited-Unlimited <br>
 
-- [x] Master server basic implementation
+## THIS IS STILL IN PROGRESS
+## Project Status
+Here are the features previously implemented:
+
 - [x] Game server basic implementation (clients can connect)
 - [x] Single-cell movement
 - [x] Randomly generated cells and viruses
@@ -19,12 +21,15 @@ The project is nearly complete. Here's a rough list of what's been done and what
 - [x] Multi-cell player movement
 - [x] Cells eating other cells
 - [x] Leaderboard
-- [x] Team mode
+
+Here are the features that I added/plan to add:
+
 - [x] Spectate mode
 - [ ] Admin Commands
 - [x] Server Logging
 - [x] Chat Filter for Profanity
-- [ ] IP Ban/Kick via Command Line
+- [x] IP Ban
+- [ ] Kick Players via Command Line
 - [ ] Seperate Queue Page with Redirect to Game
 
 
