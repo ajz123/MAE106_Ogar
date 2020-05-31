@@ -545,6 +545,9 @@ Press <b>W</b> to eject some mass<br/>
         ws.on('error', close.bind(bindObject));
         ws.on('close', close.bind(bindObject));
         this.clients.push(ws);
+
+        //var playername = PlayerTracker.name;
+        //Logger.info("Player that connected: " + playername);
     }
 }
 

@@ -1,4 +1,5 @@
 var Packet = require('./packet');
+var Logger = require('./modules/Logger');
 
 function PacketHandler(gameServer, socket) {
     this.gameServer = gameServer;
@@ -42,6 +43,7 @@ PacketHandler.prototype.handleMessage = function(message) {
                 nick += String.fromCharCode(charCode);
             }
             this.setNickname(nick);
+            Logger.info(nick + " has joined the server!");
             break;
         case 1:
             // Spectate mode
@@ -114,7 +116,8 @@ this.merg = true;
             }
 
             //Chat message debug
-            console.log("here's the message:" + message);
+            //Logger.info(this.name.playerTracker + "here's the message:" + message);
+            //console.log("here's the message:" + message);
 
             //Command Checker
             if (message[0] =='/') {
@@ -141,6 +144,7 @@ default:
 }
 
 PacketHandler.prototype.setNickname = function(newNick) {
+    //Logger.info(newNick + "has joined the server!");
     var client = this.socket.playerTracker;
     if (client.cells.length < 1) {
         // If client has no cells... then spawn a player
